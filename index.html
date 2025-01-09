@@ -12,6 +12,20 @@
     <!-- Canvas area -->
     <canvas id="animationCanvas" width="800" height="450"></canvas>
 
+        <!-- Text for narrative or scene description -->
+        <div id="narrativeText" class="narrative-text">Click "Start the Narrative" to begin...</div>
+
+        <div class="scenario-selector">
+          <select id="scenarioSelect" class="scenario-dropdown">
+            <option value="outrage">Emotional Outrage</option>
+            <option value="interpretation">Ricoeur's Interpretation</option>
+            <option value="ai">Human-ASI Encounter</option>
+            <option value="historicality">Heidegger's Historicality</option>
+            <option value="nietzsche">Nietzsche's Critique of Morality</option>
+            <option value="adorno">Adorno's Critique of Heidegger</option>
+          </select>
+        </div>
+        
     <!-- Controls area -->
     <div class="controls">
       <button id="startAnimationBtn" class="start-btn">Start the Narrative</button>
@@ -28,8 +42,6 @@
       </div>
     </div>
 
-    <!-- Text for narrative or scene description -->
-    <div id="narrativeText" class="narrative-text">Click "Start the Narrative" to begin...</div>
 
     <!-- Speech bubble container -->
     <div id="speechBubbleContainer"></div>

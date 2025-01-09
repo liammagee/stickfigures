@@ -141,8 +141,11 @@ function adornoTimeline() {
     ]
   });
 
-  totalSteps = 6;
 
+  console.log('got ')
+
+  totalSteps = 6;
+  
   return TimelineManager.createSteppedTimeline(
     [scene1, scene2, scene3, scene4, scene5, scene6],
     {

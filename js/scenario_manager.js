@@ -1,16 +1,4 @@
-// First, let's modify your HTML to add the scenario selector
-const scenarioSelectorHTML = `
-<div class="scenario-selector">
-  <select id="scenarioSelect" class="scenario-dropdown">
-    <option value="outrage">Emotional Outrage</option>
-    <option value="interpretation">Ricoeur's Interpretation</option>
-    <option value="ai">Human-ASI Encounter</option>
-    <option value="historicality">Heidegger's Historicality</option>
-    <option value="nietzsche">Nietzsche's Critique of Morality</option>
-    <option value="adorno">Adorno's Critique of Heidegger</option>
-  </select>
-</div>
-`;
+
 
 // Scenario Manager to handle different scenarios
 const ScenarioManager = {
@@ -74,8 +62,6 @@ const ScenarioManager = {
 
   initialize() {
     // Add scenario selector to DOM
-    const controlsDiv = document.querySelector('.controls');
-    controlsDiv.insertAdjacentHTML('afterbegin', scenarioSelectorHTML);
 
     // Add event listener for scenario changes
     const selector = document.getElementById('scenarioSelect');
@@ -98,6 +84,7 @@ const ScenarioManager = {
       return;
     }
 
+    console.log(scenario)
     // Update current scenario
     this.currentScenario = scenario;
 
@@ -110,13 +97,14 @@ const ScenarioManager = {
       fig.isAndroid = figConfig.isAndroid;
     });
 
+    // Update createTimeline function
+    window.createTimeline = scenario.createTimeline;
+
     // Initialize new scenario
     if (scenario.initialize) {
       scenario.initialize();
     }
 
-    // Update createTimeline function
-    window.createTimeline = scenario.createTimeline;
 
     // Reset UI
     SceneHelpers.updateNarrativeText("Click 'Start the Narrative' to begin...");
@@ -124,34 +112,6 @@ const ScenarioManager = {
   }
 };
 
-// Add CSS for the scenario selector
-const style = document.createElement('style');
-style.textContent = `
-  .scenario-selector {
-    margin-bottom: 1rem;
-  }
-
-  .scenario-dropdown {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    cursor: pointer;
-    width: 200px;
-  }
-
-  .scenario-dropdown:hover {
-    border-color: #888;
-  }
-
-  .scenario-dropdown:focus {
-    outline: none;
-    border-color: #666;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  }
-`;
-document.head.appendChild(style);
 
 // Modified initialization
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize scenario manager
   ScenarioManager.initialize();
+  
   
   // Add event listeners for controls
   startButton.addEventListener('click', startNarrative);

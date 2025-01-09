@@ -161,69 +161,6 @@ const BackgroundHelper = {
   }
 };
 
-// ---------------------------------------------------
-// 2. REFACTORED NARRATIVE TIMELINE
-// ---------------------------------------------------
-function startNarrative() {
-  // Reset figures to neutral pose
-  figures.forEach(fig => Object.assign(fig, POSES.NEUTRAL));
-  
-  // Start breathing animation
-  figures.forEach(AnimationHelpers.breathe);
-
-  const tl = gsap.timeline({
-    onComplete: () => {
-      narrativeText.textContent = "End of the story! Both figures have completed their arcs.";
-    }
-  });
-
-  // Scene 1: Friendly Introduction
-  tl.add(() => {
-    narrativeText.textContent = "Scene 1: Our two stick figures meet politely...";
-    BackgroundHelper.setMood("#fafafa");
-  });
-
-  tl.add(AnimationHelpers.wave(figures[0]));
-  tl.add(() => SpeechHelper.say(figures[0], "Hey, nice day!"), ">");
-  
-  tl.add(AnimationHelpers.wave(figures[1]), "-=1");
-  tl.add(() => SpeechHelper.say(figures[1], "Indeed, lovely weather!"), ">");
-
-  // Scene 2: Rising Tension
-  tl.add(() => {
-    narrativeText.textContent = "Scene 2: A minor disagreement starts. Tensions rise...";
-    BackgroundHelper.setMood("#ffe8e8");
-  }, "+=1");
-
-  tl.add(AnimationHelpers.setPose(figures[0], {
-    ...POSES.DEFENSIVE,
-    leftShoulderAngle: -Math.PI / 3,
-    rightShoulderAngle: Math.PI / 3
-  }));
-
-  tl.add(AnimationHelpers.walk(figures[1], 30), "<");
-
-  // Scene 3: Peak Confrontation
-  tl.add(() => {
-    narrativeText.textContent = "Scene 3: Figure1 becomes agitated, expressing strong emotions!";
-    BackgroundHelper.setMood("#ffd9d9");
-  }, "+=1");
-
-  tl.add(AnimationHelpers.setPose(figures[0], POSES.ARMS_RAISED, 1.5, "elastic.out(1, 0.5)"))
-    .add(() => SpeechHelper.say(figures[0], "I'm outraged!!", 2, -120), "<");
-
-  tl.add(AnimationHelpers.walk(figures[1], 40), "<");
-  tl.add(AnimationHelpers.shake(figures[0]));
-
-  // Scene 4: De-escalation
-  tl.add(() => {
-    narrativeText.textContent = "Scene 4: The situation begins to calm down...";
-    BackgroundHelper.setMood("#e8ffe8", 1);
-  }, "+=1");
-
-  tl.add(AnimationHelpers.setPose(figures[0], POSES.NEUTRAL, 2));
-}
-
 
 // ---------------------------------------------------
 // 3. DRAWING FUNCTIONS (Keep original drawJointedFigure and drawAllFigures)
